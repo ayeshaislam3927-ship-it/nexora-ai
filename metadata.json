@@ -1,0 +1,6 @@
+{
+  "name": "NEXORA",
+  "description": "Complete PHP & MySQL Full-Stack AI Platform featuring Gemini AI integration, multi-model chat, ChatGPT-style onboarding, admin dashboard, secure authentication, and cPanel deployment readiness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

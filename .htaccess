@@ -1,0 +1,44 @@
+# NEXORA - Apache .htaccess Configuration
+
+Options -Indexes
+FollowSymLinks
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Block access to sensitive directories
+    RewriteRule ^(config|includes|storage|database|admin/includes)/ - [F,L]
+
+    # Block access to sensitive file extensions
+    RewriteRule \.(sql|log|env|json|bak|sh)$ - [F,L]
+
+    # Custom Clean URL Aliases
+    RewriteRule ^login$ login.php [L,QSA]
+    RewriteRule ^signup$ register.php [L,QSA]
+    RewriteRule ^register$ register.php [L,QSA]
+    RewriteRule ^assistant$ assistant.php [L,QSA]
+    RewriteRule ^logout$ logout.php [L,QSA]
+    RewriteRule ^settings$ settings.php [L,QSA]
+
+    # Admin Clean URL Aliases
+    RewriteRule ^admin/dashboard$ admin/dashboard.php [L,QSA]
+    RewriteRule ^admin/users$ admin/users.php [L,QSA]
+    RewriteRule ^admin/chats$ admin/chats.php [L,QSA]
+    RewriteRule ^admin/settings$ admin/settings.php [L,QSA]
+    RewriteRule ^admin/logs$ admin/logs.php [L,QSA]
+    RewriteRule ^admin/reports$ admin/reports.php [L,QSA]
+
+    # Hide .php extension for remaining requests
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
